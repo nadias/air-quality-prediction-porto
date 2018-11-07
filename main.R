@@ -2,26 +2,16 @@ setwd("/Users/nadiasoares/Documents/TrabalhoIDS/air-quality-prediction-porto/")
 
 dirLocationsList <- list.dirs(path="data", recursive=FALSE)
 
-df <- data.frame(Date=as.POSIXct(character()), 
-                 CO=as.numeric(),
-                 Humidity=as.numeric(),
-                 Luminosity=as.numeric(),
-                 NO2=as.numeric(),
-                 Noise=as.numeric(),
-                 O3=as.numeric(),
-                 Particles1=as.numeric(),
-                 Particles2=as.numeric(),
-                 Precipitation=as.numeric(),
-                 SolarRadiation=as.numeric(),
-                 Temperature=as.numeric(),
-                 WindDirection=as.numeric(),
-                 WindSpeed=as.numeric(),
+# For testing only:
+dirLocationsList <- list.dirs(path="data", recursive=FALSE)[1]
+
+df <- data.frame(Date=as.POSIXct(character()),
                  Location=as.factor(character()))
 
 for (dir in dirLocationsList) {
   dirVariableSubList <- list.dirs(path=dir, recursive=FALSE)
   location <- strsplit(dir, "data/USense_")[[1]][2]
-  
+
   for (subDir in dirVariableSubList) {
     files <- list.files(subDir)
     filter <- paste("data/USense_", location, "/USense_", location, "_", sep="")
