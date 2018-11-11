@@ -41,3 +41,7 @@ names(df) <- c("Date", "Location", "CO", "Humidity", "Luminosity", "NO2", "Noise
 imputedMod <- mice(df[, c("CO", "Humidity", "Luminosity", "NO2", "Noise", "O3", "Particles1", "Particles2", "Precipitation", "SolarRadiation", "Temperature", "WindDirection", "WindSpeed")], method="rf")  # perform mice imputation, based on random forests.
 imputedDF <- complete(imputedMod)  # generate the completed data.
 anyNA(imputedDF)
+
+# Note: this is just linear correlation. A close to 0 value means there is no LINEAR correlation.
+cor(df[, c("CO", "Humidity", "Luminosity", "NO2", "Noise", "O3", "Particles1", "Particles2", "Precipitation", "SolarRadiation", "Temperature", "WindDirection", "WindSpeed")], use="complete.obs")
+# cor(df[, c("CO", "Humidity", "Luminosity", "NO2", "Noise", "O3", "Particles1", "Particles2", "Precipitation", "SolarRadiation", "Temperature", "WindDirection", "WindSpeed")], use="complete.obs", method="spearman")
