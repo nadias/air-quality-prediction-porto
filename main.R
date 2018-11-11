@@ -33,3 +33,11 @@ for (dir in dirLocationsList) {
 }
 
 View(df)
+
+#install.packages("mice")
+library("mice")
+
+names(df) <- c("Date", "Location", "CO", "Humidity", "Luminosity", "NO2", "Noise", "O3", "Particles1", "Particles2", "Precipitation", "SolarRadiation", "Temperature", "WindDirection", "WindSpeed")
+imputedMod <- mice(df[, c("CO", "Humidity", "Luminosity", "NO2", "Noise", "O3", "Particles1", "Particles2", "Precipitation", "SolarRadiation", "Temperature", "WindDirection", "WindSpeed")], method="rf")  # perform mice imputation, based on random forests.
+imputedDF <- complete(imputedMod)  # generate the completed data.
+anyNA(imputedDF)
