@@ -1,4 +1,4 @@
-setwd("/Users/nadiasoares/Documents/TrabalhoIDS/air-quality-prediction-porto/")
+setwd("/Users/Paulo/Desktop/MestradoDS/IntroducaoDataScience/Trabalho/air-quality-prediction-porto/")
 
 dirLocationsList <- list.dirs(path="data", recursive=FALSE)
 
@@ -34,11 +34,14 @@ for (dir in dirLocationsList) {
 
 View(df)
 
-#install.packages("mice")
+# plot num missing values
+
+install.packages("mice")
+install.packages("randomForest")
 library("mice")
 
 names(df) <- c("Date", "Location", "CO", "Humidity", "Luminosity", "NO2", "Noise", "O3", "Particles1", "Particles2", "Precipitation", "SolarRadiation", "Temperature", "WindDirection", "WindSpeed")
-imputedMod <- mice(df[, c("CO", "Humidity", "Luminosity", "NO2", "Noise", "O3", "Particles1", "Particles2", "Precipitation", "SolarRadiation", "Temperature", "WindDirection", "WindSpeed")], method="rf")  # perform mice imputation, based on random forests.
+imputedMod <- mice(df[, c("CO", "Humidity")], method="rf")  # perform mice imputation, based on random forests.    , "Luminosity", "NO2", "Noise", "O3", "Particles1", "Particles2", "Precipitation", "SolarRadiation", "Temperature", "WindDirection", "WindSpeed"
 imputedDF <- complete(imputedMod)  # generate the completed data.
 anyNA(imputedDF)
 
